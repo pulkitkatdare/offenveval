@@ -1,13 +1,13 @@
-from DartEnv.model.BetaNet import BetaNetwork
+from dartenv.model.BetaNet import BetaNetwork
 import torch 
 import numpy as np
 import _pickle as cPickle
-from DartEnv.common.replaybuffer import ReplayBuffer
+from dartenv.common.replaybuffer import ReplayBuffer
 
 SAMPLE_SIZE = 128
 CUDA = torch.cuda.is_available()
 def BetaEstimator(environment, batch_size, train, identifier=''):
-    save_folder = 'DartEnv/environmentdata/' + environment
+    save_folder = 'dartenv/environmentdata/' + environment
     D_P = cPickle.load(open(save_folder + '/DP.pkl', 'rb'))
     D_Q = cPickle.load(open(save_folder + '/DQ.pkl', 'rb'))
 

@@ -4,7 +4,7 @@ import numpy as np
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.nn.init as weight_init
-from DartEnv.common.replaybuffer import ReplayBuffer
+from dartenv.common.replaybuffer import ReplayBuffer
 
 CUDA = torch.cuda.is_available()
 
