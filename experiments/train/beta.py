@@ -90,7 +90,7 @@ if __name__ == '__main__':
                     data_q = np.random.normal(loc=mean_q, scale=np.sqrt(variance_q), size=(sample, 1))
                     for i in range(10):
                         key = '_' + str(i) + '_' + str(int(mean_p)) + str(int(variance_p)) + str(int(mean_q)) + str(int(variance_q))
-                        Beta = BetaEstimator(sample_size=sample, data_p=data_p, data_q=data_q, train=False, key=key)
+                        Beta = BetaEstimator(sample_size=sample, data_p=data_p, data_q=data_q, train=False, key=key, config=config)
                         input = np.expand_dims([point], axis=1)
                         input = torch.from_numpy(input)
                         input = input.type(torch.FloatTensor)
@@ -107,9 +107,9 @@ if __name__ == '__main__':
             index += 1
         plt.plot(X, baseline, '--', linewidth=2, color='#4a1486')
         legends = []
-        sample_sizes.remove('Baselines')
-        for i in range(len(Sample_Sizes)):
-                legends.append(str(sample_sizes[i]))
+        sample_size.remove('Baselines')
+        for i in range(len(sample_size)):
+                legends.append(str(sample_size[i]))
         legends.append('Oracle')
         plt.legend(legends)
         plt.grid(True)
