@@ -4,7 +4,7 @@ import numpy as np
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.nn.init as weight_init
-from GridWorld.common.replaybuffer import ReplayBuffer
+from gridworld.common.replaybuffer import ReplayBuffer
 
 
 class BetaNetwork(nn.Module):

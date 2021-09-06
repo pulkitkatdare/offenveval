@@ -2,9 +2,9 @@ import numpy as np
 import gym
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
-from GridWorld.common.replaybuffer import ReplayBuffer
+from gridworld.common.replaybuffer import ReplayBuffer
 import _pickle as cPickle
-from GridWorld.model.betaforRL import BetaEstimator
+from gridworld.model.betaforRL import BetaEstimator
 import torch
 
 
@@ -127,56 +127,7 @@ def collect_data(episodes, p_parameters, q_parameters, size):
     return D_P, D_Q
 
 def save_model(D_P, D_Q, environment='GridWorld10x10'):
-    save_folder = 'GridWorld/environmentdata/' + environment + '/'
+    save_folder = 'gridworld/environmentdata/' + environment + '/'
     cPickle.dump(D_P, open(save_folder + 'DP.pkl', 'wb'))
     cPickle.dump(D_Q, open(save_folder + 'DQ.pkl', 'wb'))
     
-'''
-D_P, D_Q = collect_data(episodes=1000, p_parameters=0.9, q_parameters=0.7)
-save_model(D_P, D_Q)
-
-Batches = [1000, 2000, 5000, 10000, 20000, 50000, 100000, 200000]
-Data_Batches = []
-for batch_size in Batches:
-    print (batch_size)
-    Net = BetaEstimator(environment='GridWorld10x10', batch_size=batch_size, train=False)
-    Beta_oracle = []
-    Beta_oracle.append(np.array([1.285, 0.333, 0.333, 0.333]))
-    Beta_oracle.append(np.array([0.333, 1.285, 0.333, 0.333]))
-    Beta_oracle.append(np.array([0.333, 0.333, 1.285, 0.333]))
-    Beta_oracle.append(np.array([0.333, 0.333, 0.333, 1.285]))
-    
-    
-    env = GridWorld(size=(10, 10), action_probability=0.7)
-    state = [np.random.randint(env.rows), np.random.randint(env.columns)]
-    env.state = state
-    state = np.array(state)
-    state = np.expand_dims(state, axis=0)
-    sum = 0
-    total = 0
-    state = np.array(state)
-    for row in range(env.rows):
-        for col in range(env.columns):
-            state = [row, col]
-            state = np.array(state)
-            state = np.expand_dims(state, axis=0)
-            for index, action in enumerate(range(4)):
-                total += 1
-                x = np.concatenate((state, [[action]]), axis=1)
-                x = torch.from_numpy(x)
-                x = x.type(torch.FloatTensor)
-                output1 = (Net.predict(x))
-                error = np.abs(output1.data.numpy() - Beta_oracle[index])**2
-                sum += np.sqrt(np.sum(error))
-    Data_Batches.append(sum/total)
-    print (sum/total)
-
-colors = ['#00441b', '#006d2c', '#238b45', '#41ae76', '#66c2a4', '#99d8c9', '#ccece6', '#e5f5f9', '#f7fcfd']
-X = np.arange(len(Batches))
-plt.plot(X, Data_Batches, marker='o', markerfacecolor='#238b45', markersize=12, color='#66c2a4', linewidth=4)
-plt.grid(True)
-plt.xticks(X, Batches)
-plt.xlabel('Sample Size', fontsize=16)
-plt.ylabel('L2 Error', fontsize=16)
-plt.show()
-'''

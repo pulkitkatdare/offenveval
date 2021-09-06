@@ -1,13 +1,12 @@
-#from GridWorld.model.BetaNet import BetaNetwork
-from GridWorld.model.BetaNet import BetaNetwork
+from gridworld.model.BetaNet import BetaNetwork
 import torch 
 import numpy as np
 import _pickle as cPickle
-from GridWorld.common.replaybuffer import ReplayBuffer
+from gridworld.common.replaybuffer import ReplayBuffer
 
 SAMPLE_SIZE = 128
 def BetaEstimator(environment, batch_size, train, size, key):
-    save_folder = 'GridWorld/environmentdata/' + environment
+    save_folder = 'gridworld/environmentdata/' + environment
     D_P = cPickle.load(open(save_folder + '/DP.pkl', 'rb'))
     D_Q = cPickle.load(open(save_folder + '/DQ.pkl', 'rb'))
 
